@@ -1,0 +1,15 @@
+# /home/judohippo/.config/tmuxinator/base.yml
+
+name: base
+root: ~/
+
+windows:
+    - ranger:
+        layout: a89f,157x37,0,0{117x37,0,0[117x12,0,0,0,117x24,0,13{62x24,0,13,2,54x24,63,13,3}],39x37,118,0,1}
+        panes:
+            - ranger 
+            - cd ~/
+            - cd ~/
+            - todo:
+                - nb personal:todo
+                - nb work:todo

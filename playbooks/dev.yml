@@ -1,0 +1,78 @@
+---
+- name: "Playing with Ansible and Git"
+  hosts: dev
+  connection: local
+  tasks:
+    - name: Intstall Git
+      pacman:
+        name: git
+        state: latest
+      when: ansible_distribution == 'Manjaro'
+    - name: Intstall Bat
+      pacman:
+        name: bat
+        state: latest
+      when: ansible_distribution == 'Manjaro'
+    - name: Intstall w3m
+      pacman:
+        name: w3m
+        state: latest
+      when: ansible_distribution == 'Manjaro'
+    - name: Intstall fzf
+      pacman:
+        name: fzf
+        state: latest
+      when: ansible_distribution == 'Manjaro'
+    - name: Intstall highlight
+      pacman:
+        name: highlight
+        state: latest
+      when: ansible_distribution == 'Manjaro'   
+    - name: Intstall mupdf-tools
+      pacman:
+        name: mupdf-tools  
+        state: latest
+      when: ansible_distribution == 'Manjaro'  
+    - name: Intstall kitty
+      pacman:
+        name: kitty  
+        state: latest
+      when: ansible_distribution == 'Manjaro'    
+    - name: Intstall ripgrep
+      pacman:
+        name: ripgrep  
+        state: latest
+      when: ansible_distribution == 'Manjaro'
+    - name: Intstall micro
+      pacman:
+        name: micro  
+        state: latest
+      when: ansible_distribution == 'Manjaro'
+    - name: Intstall tmuxinator
+      pacman:
+        name: tmux  
+        state: latest
+      when: ansible_distribution == 'Manjaro' 
+    - name: Intstall tmuxinator
+      gem:
+        name: tmuxinator  
+        state: latest
+      when: ansible_distribution == 'Manjaro' 
+    - name: Intstall the_silver_searcher
+      pacman:
+        name: the_silver_searcher  
+        state: latest
+      when: ansible_distribution == 'Manjaro'
+    - name: Intstall nb
+      pacman:
+        name: nb  
+        state: latest
+      when: ansible_distribution == 'Manjaro'
+    - name: Intstall ranger
+      pacman:
+        name: ranger  
+        state: latest
+      when: ansible_distribution == 'Manjaro'
+    
+    #- name: Install NVM
+    # add as ohmyzsh plugin

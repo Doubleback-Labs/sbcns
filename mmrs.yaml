@@ -1,0 +1,10 @@
+mmrs:
+  - tmux.conf
+  - tmuxinator
+  - .zshrc
+  - config.d
+
+rewire: #
+  orig: $HOME/_
+  old: $HOME/_.old
+  sbcns: $DOT/_.conf
