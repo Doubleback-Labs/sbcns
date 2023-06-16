@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
+ARG1=$1
+
+
 #
 # Set's a machine up to use a repo
 #
 
-source generate.sh
-
-SBCNS=$(basename $0)
-DOT=$($SBCNS/dot)
-UTILS=$($SBCNS/utils)
+SBCNS=$(dirname $(realpath $0))
+DOT=$SBCNS/dot
+UTILS=$SBCNS/utils
 
 source mmrs.sh
 
@@ -16,25 +17,33 @@ for i in "${!MMRS[@]}"
 do
   
   echo "========================================="
-
-	IFS=' ' read -ra ADDR <<< "${MMRS[$i]}}"
+  
+  IFS=' ' read -ra ADDR <<< "${MMRS[$i]}"
 
   echo "orig file: ${ADDR[0]}"
   echo "old file: ${ADDR[1]}"
   echo "sbcns file: ${ADDR[2]}"
 
-  ORIG=${ADDR[0]}
+  ORIGFILE=${ADDR[0]}
+  OLDFILE=${ADDR[1]}
+  SBCNSFILE=${ADDR[2]}
 
-  if [[ -L ${ORIG} ]] && [[ -e ${ORIG} ]]; then
-    echo "${ORIG} Already configured"
+  if [[ -L ${ORIGFILE} ]] && [[ -e ${ORIGFILE} ]]; then
+    echo "${ORIGFILE} Already configured"
   else
-    if [[ -e ${ORIG} ]]; then
-      #mv $ADDR[0] $ADDR[1]
+    if [[ -e ${ORIGFILE} ]]; then
+      mv $ORIGFILE $OLDFILE
       echo "not linked. move orig to old"
-    else
-      #ln -s $ADDR[2] $ADDR[0]
-      echo "link to sbcns"
     fi
+
+    if [[ $ARG1 == "relink" ]]; then
+      rm $ORIGFILE
+    fi
+    
+    ln -s -f ${SBCNSFILE} ${ORIGFILE}
+    echo "link to sbcns"
   fi
   
 done
+
+exit 0
