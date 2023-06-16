@@ -1,0 +1,4 @@
+rewire: #
+  - _
+  - _.old
+  - _.conf

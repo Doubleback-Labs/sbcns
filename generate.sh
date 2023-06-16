@@ -1,9 +1,19 @@
 #!/usr/bin/env bash
 
+# Author:  TJ Gillis <tj@doublebacklabs.com>
+#
+# Version 0.0.1
+# Release Date 16/06/23 <dd/mm/yy>
+#
+# Contributors:
+#   <This could be your name!>
+#
+# SPDX-License-Identifier: Unlicense
+
 ARG1=$1
 
 
-#
+# 
 # Set's a machine up to use a repo
 #
 
@@ -11,22 +21,17 @@ SBCNS=$(dirname $(realpath $0))
 DOT=$SBCNS/dot
 UTILS=$SBCNS/utils
 
-source mmrs.sh
+for mmr in $(yq -c --raw-output .mmrs[] mmrs.yaml); do
+  REWIRE_ORIGFILE=$( yq -c --raw-output '.rewire[0]' rewire.yaml)
+  REWIRE_OLDFILE=$( yq -c --raw-output '.rewire[1]' rewire.yaml)
+  REWIRE_SBCNSFILE=$( yq -c --raw-output '.rewire[2]' rewire.yaml) 
 
-for i in "${!MMRS[@]}"
-do
-  
-  echo "========================================="
-  
-  IFS=' ' read -ra ADDR <<< "${MMRS[$i]}"
+  ORIGFILE=$HOME/$(echo "${REWIRE_ORIGFILE/_/"$mmr"}")
+  OLDFILE=$HOME/$(echo "${REWIRE_OLDFILE/_/"$mmr"}")
+  SBCNSFILE=$HOME/$(echo "${REWIRE_SBCNSFILE/_/"$mmr"}")
 
-  echo "orig file: ${ADDR[0]}"
-  echo "old file: ${ADDR[1]}"
-  echo "sbcns file: ${ADDR[2]}"
 
-  ORIGFILE=${ADDR[0]}
-  OLDFILE=${ADDR[1]}
-  SBCNSFILE=${ADDR[2]}
+  echo $ORIGFILE
 
   if [[ -L ${ORIGFILE} ]] && [[ -e ${ORIGFILE} ]]; then
     echo "${ORIGFILE} Already configured"
@@ -42,8 +47,7 @@ do
     
     ln -s -f ${SBCNSFILE} ${ORIGFILE}
     echo "link to sbcns"
-  fi
-  
+  fi                
 done
 
 exit 0
