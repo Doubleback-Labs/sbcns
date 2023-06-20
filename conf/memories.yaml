@@ -1,5 +1,6 @@
-mmrs:
+memories:
   - .tmux.conf
   - .config/tmuxinator
   - .zshrc
   - .ssh/config.d
+  - .zsh_history

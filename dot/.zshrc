@@ -16,9 +16,9 @@ fi
 
 
 ### START SBCNS ###
-export SBCNS=~/.sbcns
+export SBCNS=~/.sbcns_dev
 # Include .profile dotfiles (aliases and exports atm)
-for f in $SBCNS/dot/*; do source $f; done
+for f in $SBCNS/dot/source*; do source $f; done
 ### END SBCNS ###
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
